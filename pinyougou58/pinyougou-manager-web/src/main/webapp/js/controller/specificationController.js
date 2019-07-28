@@ -6,9 +6,20 @@
         list:[],
         entity:{specification:{},optionList:[{}]},
         ids:[],
+        status:['未审核','已审核','审核未通过'],
         searchEntity:{}
     },
     methods: {
+        updateStatus:function (status) {
+            axios.post('/specification/updateStatus/'+status+'.shtml',this.ids).then(function (response) {
+                if (response.data.success) {
+                    this.ids=[];
+                    window.location.reload();
+                }else {
+                    alert(response.data.message)
+                }
+            })
+        },
         searchList:function (curPage) {
             axios.post('/specification/search.shtml?pageNo='+curPage,this.searchEntity).then(function (response) {
                 //获取数据

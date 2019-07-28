@@ -34,6 +34,20 @@ public class TbTypeTemplate implements Serializable {
     @Column(name = "custom_attribute_items")
     private String customAttributeItems;
 
+    /**
+     * 审核状态
+     */
+    @Column(name = "audit_status")
+    private String auditStatus;
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
+
     private static final long serialVersionUID = 1L;
 
     /**

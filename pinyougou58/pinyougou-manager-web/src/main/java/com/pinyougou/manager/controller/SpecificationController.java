@@ -104,5 +104,18 @@ public class SpecificationController {
                                       @RequestBody TbSpecification specification) {
         return specificationService.findPage(pageNo, pageSize, specification);
     }
-	
+
+	/**
+	 * 审核规格
+	 */
+	@RequestMapping("/updateStatus/{status}")
+	public Result updateStatus(@RequestBody Long[] ids, @PathVariable(value="status")  String status){
+		try {
+			specificationService.updateStatus(ids,status);
+			return new Result(true,"更新成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false,"更新失败");
+		}
+	}
 }

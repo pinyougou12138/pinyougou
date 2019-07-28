@@ -137,4 +137,13 @@ public class TypeTemplateServiceImpl extends CoreServiceImpl<TbTypeTemplate>  im
         return maps;
     }
 
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        TbTypeTemplate record = new TbTypeTemplate();
+        record.setAuditStatus(status);
+        Example example = new Example(TbTypeTemplate.class);
+        example.createCriteria().andIn("id", Arrays.asList(ids));
+        typeTemplateMapper.updateByExampleSelective(record,example);//update set status=1 where id in (12,3)
+    }
+
 }

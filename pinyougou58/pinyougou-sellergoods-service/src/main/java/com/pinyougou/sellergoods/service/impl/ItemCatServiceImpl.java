@@ -91,4 +91,13 @@ public class ItemCatServiceImpl extends CoreServiceImpl<TbItemCat> implements It
         return itemCatList;
     }
 
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        TbItemCat record= new TbItemCat();
+        record.setAuditStatus(status);
+        Example example = new Example(TbItemCat.class);
+        example.createCriteria().andIn("id", Arrays.asList(ids));
+        itemCatMapper.updateByExampleSelective(record,example);//update set status=1 where id in (12,3)
+    }
+
 }

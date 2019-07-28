@@ -80,5 +80,20 @@ public class BrandServiceImpl extends CoreServiceImpl<TbBrand>  implements Brand
 
         return pageInfo;
     }
-	
+
+    /**
+     * 审核品牌
+     * @param ids
+     * @param status
+     */
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        TbBrand record = new TbBrand();
+        record.setAuditStatus(status);
+        Example example = new Example(TbBrand.class);
+        example.createCriteria().andIn("id",Arrays.asList(ids));
+        brandMapper.updateByExampleSelective(record,example);
+
+    }
+
 }

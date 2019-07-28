@@ -31,6 +31,18 @@ public class TbItemCat implements Serializable {
     @Column(name = "type_id")
     private Long typeId;
 
+
+    @Column(name = "audit_status")
+    private String auditStatus;
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
+
     private static final long serialVersionUID = 1L;
 
     /**

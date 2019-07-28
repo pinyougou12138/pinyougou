@@ -18,8 +18,18 @@ public class TbSpecification implements Serializable {
      */
     @Column(name = "spec_name")
     private String specName;
+    @Column(name = "audit_status")
+    private String auditStatus;
 
     private static final long serialVersionUID = 1L;
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
 
     /**
      * 获取主键

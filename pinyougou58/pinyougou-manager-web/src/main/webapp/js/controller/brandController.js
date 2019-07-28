@@ -6,6 +6,7 @@
         list:[],
         entity:{},
         ids:[],
+        status:['未审核','已审核','审核未通过'],
         searchEntity:{}
     },
     methods: {
@@ -92,8 +93,17 @@
             }).catch(function (error) {
                 console.log("1231312131321");
             });
+        },
+        updateStatus:function (status) {
+            axios.post('/brand/updateStatus/'+status+'.shtml',this.ids).then(function (response) {
+                if (response.data.success) {
+                    this.ids=[];
+                    window.location.reload();
+                }else {
+                    alert(response.data.message)
+                }
+            })
         }
-
 
 
     },

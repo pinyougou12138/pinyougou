@@ -97,5 +97,14 @@ public class SpecificationServiceImpl extends CoreServiceImpl<TbSpecification>  
 
         return pageInfo;
     }
-	
+
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        TbSpecification record = new TbSpecification();
+        record.setAuditStatus(status);
+        Example example = new Example(TbSpecification.class);
+        example.createCriteria().andIn("id", Arrays.asList(ids));
+        specificationMapper.updateByExampleSelective(record,example);//update set status=1 where id in (12,3)
+    }
+
 }

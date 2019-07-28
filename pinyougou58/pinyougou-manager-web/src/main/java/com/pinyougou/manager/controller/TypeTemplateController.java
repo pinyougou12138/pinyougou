@@ -103,5 +103,18 @@ public class TypeTemplateController {
                                       @RequestBody TbTypeTemplate typeTemplate) {
         return typeTemplateService.findPage(pageNo, pageSize, typeTemplate);
     }
+	/**
+	 * 对模板进行审核
+	 */
+	@RequestMapping("/updateStatus/{status}")
+	public Result updateStatus(@PathVariable("status") String status, @RequestBody Long[] ids){
+		try {
+			typeTemplateService.updateStatus(ids,status);
+			return new Result(true,"更新成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false,"更新失败");
+		}
+	}
 	
 }

@@ -109,5 +109,17 @@ public class ItemCatController {
 
 		return itemCatService.findByParentId(parentId);
 	}
-	
+	/**
+	 * 对分类进行审核
+	 */
+	@RequestMapping("/updateStatus/{status}")
+	public Result updateStatus(@PathVariable("status") String status, @RequestBody Long[] ids){
+		try {
+			itemCatService.updateStatus(ids,status);
+			return new Result(true,"更新成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false,"更新失败");
+		}
+	}
 }

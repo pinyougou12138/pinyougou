@@ -15,7 +15,7 @@ import entity.Result;
  */
 @RestController
 @RequestMapping("/brand")
-public class BrandController {
+public class  BrandController {
 
 	@Reference
 	private BrandService brandService;
@@ -94,8 +94,6 @@ public class BrandController {
 			return new Result(false, "删除失败");
 		}
 	}
-	
-	
 
 	@RequestMapping("/search")
     public PageInfo<TbBrand> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
@@ -103,5 +101,18 @@ public class BrandController {
                                       @RequestBody TbBrand brand) {
         return brandService.findPage(pageNo, pageSize, brand);
     }
-	
+
+	/**
+	 * 对品牌进行审核
+	 */
+	@RequestMapping("/updateStatus/{status}")
+	public Result updateStatus(@PathVariable("status") String status, @RequestBody Long[] ids){
+		try {
+			brandService.updateStatus(ids,status);
+			return new Result(true,"更新成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false,"更新失败");
+		}
+	}
 }
