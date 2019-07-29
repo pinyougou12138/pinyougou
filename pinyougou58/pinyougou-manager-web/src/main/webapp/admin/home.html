@@ -14,12 +14,13 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../plugins/echarts/echarts.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+<div id="app-content">
 
-<!-- 内容区域 -->
-<div id="app">
+    <!-- 内容区域 -->
 
 
     <!-- 内容头部 -->
@@ -44,15 +45,14 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>{{totalOrder}}</h3>
+                        <h3>{{totalUsers}}</h3>
 
-                        <p>订单</p>
+                        <p>总用户人数</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="all-order-manage-list.html" class="small-box-footer">详细 <i
-                            class="fa fa-arrow-circle-right"></i></a>
+                    <a href="user.html" class="small-box-footer">详细 <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -116,7 +116,6 @@
             </div>
         </div>
     </div>
-
     <!-- 内容区域 /-->
 </div>
 </body>
@@ -124,6 +123,5 @@
 <script src="../plugins/axios/axios.js"></script>
 <script src="../js/controller/echarts.js"></script>
 <script src="../js/controller/indexController.js"></script>
-<script src="../js/controller/OrderMangerController.js"></script>
 
 </html>
