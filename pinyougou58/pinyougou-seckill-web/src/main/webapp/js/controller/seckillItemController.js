@@ -105,6 +105,7 @@ var app = new Vue({
         //url获取id
         var obj = this.getUrlParam();
         this.id = obj.id;
+        this.id = 1;
         //获取当前时间与库存
         this.getGoodsById(this.id);
     }

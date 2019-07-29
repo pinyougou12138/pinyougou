@@ -26,7 +26,7 @@ public class UploadFileController {
      */
     @RequestMapping("/uploadFile")
     //支持跨域
-    @CrossOrigin(origins = {"http://localhost:18088","http://localhost:18089"},allowCredentials = "true")
+    @CrossOrigin(origins = {"http://localhost:18088","http://localhost:18089","http://localhost:9106"},allowCredentials = "true")
     public Result uploadFile(MultipartFile file){
         try {
             //1.获取文件的字节数组
@@ -43,7 +43,7 @@ public class UploadFileController {
             String file_id= fastDFSClient.uploadFile(bytes, extName); //     group1/M00/00/05/wKgZhVzaOmmABd6qAAClQrJOYvs167.jpg
 
             //拼接 url
-            String realUrl= "http://192.168.25.133/"+file_id;
+            String realUrl= "http://192.168.25.129/"+file_id;
 
             return new Result(true,realUrl);
 
