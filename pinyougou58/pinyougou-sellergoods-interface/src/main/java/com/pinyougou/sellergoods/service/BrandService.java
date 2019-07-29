@@ -10,7 +10,10 @@ import com.pinyougou.core.service.CoreService;
  *
  */
 public interface BrandService extends CoreService<TbBrand> {
-	
+	/**
+	 * 从excel表中导入到数据库
+	 */
+	void importBrandList();
 	
 	
 	/**

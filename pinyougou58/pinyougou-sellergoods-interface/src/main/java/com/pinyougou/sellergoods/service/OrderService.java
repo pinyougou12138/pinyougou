@@ -14,8 +14,8 @@ import entity.BigOrder;
  *
  */
 public interface OrderService extends CoreService<TbOrder> {
-	
-	
+
+	public Map<String,Object> paymentGroupBySellerId();
 	
 	/**
 	 * 返回分页列表
