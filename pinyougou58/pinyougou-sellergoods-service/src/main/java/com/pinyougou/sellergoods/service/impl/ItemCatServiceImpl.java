@@ -1,7 +1,9 @@
 package com.pinyougou.sellergoods.service.impl;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -77,6 +79,11 @@ public class ItemCatServiceImpl extends CoreServiceImpl<TbItemCat> implements It
     @Autowired
     private RedisTemplate redisTemplate;
 
+    /***
+     * 获取一级分类
+     * @param parentId
+     * @return
+     */
     @Override
     public List<TbItemCat> findByParentId(Long parentId) {
         TbItemCat tbitemcat = new TbItemCat();
@@ -90,6 +97,31 @@ public class ItemCatServiceImpl extends CoreServiceImpl<TbItemCat> implements It
         }
         return itemCatList;
     }
+
+    /***
+     * 获取二三级分类
+     * @param parentId
+     * @return
+     */
+    @Override
+    public Map<Long,List<TbItemCat>> findByParentId23(Long parentId) {
+        Map map = new HashMap<Long,List<TbItemCat>>();
+
+        //二级分类
+        TbItemCat tbitemcat = new TbItemCat();
+        tbitemcat.setParentId(parentId);
+        List<TbItemCat> itemCatList2 = itemCatMapper.select(tbitemcat);
+        map.put(parentId,itemCatList2);
+        //三级分类
+        for (TbItemCat tbItemCat : itemCatList2) {
+            TbItemCat itemCat = new TbItemCat();
+            itemCat.setParentId(tbItemCat.getId());
+            List<TbItemCat> itemCatList3 = itemCatMapper.select(itemCat);
+            map.put(tbItemCat.getId(),itemCatList3);
+        }
+        return map;
+    }
+
 
     @Override
     public void updateStatus(Long[] ids, String status) {

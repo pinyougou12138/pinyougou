@@ -1,17 +1,27 @@
 package com.pinyougou.user.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
+import com.pinyougou.cart.service.CartService;
+import com.pinyougou.common.util.CookieUtil;
 import com.pinyougou.common.util.PhoneFormatCheckUtils;
 import com.pinyougou.user.service.UserService;
+import entity.Cart;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.pojo.TbUser;
 
 import com.github.pagehelper.PageInfo;
 import entity.Result;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * controller
@@ -24,6 +34,42 @@ public class UserController {
 
     @Reference
     private UserService userService;
+
+    @Reference
+    private CartService cartService;
+
+    /***
+     * 查看购物车
+     * @return
+     */
+    @RequestMapping("/findCartList")
+    public List<Cart> findCartList(HttpServletRequest request, HttpServletResponse response) {
+        //此处不需要判断是否登录
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        //redis中购物车
+        List<Cart> redisCartList = cartService.getCartListFromRedis(username);
+        if (redisCartList == null) {
+            redisCartList = new ArrayList<>();
+        }
+        //cookie中的购物车
+        List<Cart> cookieCartList = getCookieCartList(request);
+        //合并两个购物车
+        List<Cart> cartListNewMost = cartService.merge(cookieCartList, redisCartList);
+        //清空cookie中的购物车
+        CookieUtil.deleteCookie(request, response, "cartList");
+        return cartListNewMost;
+    }
+
+    private List<Cart> getCookieCartList(HttpServletRequest request) {
+        //cookie中查询
+        String cartListStr = CookieUtil.getCookieValue(request, "cartList", true);
+        if (StringUtils.isEmpty(cartListStr)) {
+            cartListStr = "[]";
+        }
+        List<Cart> cookieCartList = JSON.parseArray(cartListStr, Cart.class);
+        return cookieCartList;
+    }
 
 
     /**

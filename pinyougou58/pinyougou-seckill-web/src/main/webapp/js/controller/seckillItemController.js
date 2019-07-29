@@ -15,7 +15,8 @@ var app = new Vue({
                if (response.data.message=='403'){
                    //没有登录
                    var url = window.location.href;
-                   window.location.href="/page/login.shtml?url="+url;
+                   window.location.href="http://localhost:9111/page/login.shtml?url="+url
+                   //window.location.href="/page/login.shtml?url="+url;
                }else {
                    app.messageInfo=response.data.message;
                }
@@ -49,7 +50,7 @@ var app = new Vue({
             }
             return days+'天'+hours+'时'+minutes+'分'+seconds+'秒';
         },
-
+        
         //倒计时
         calculate:function (time) {
             var clock = window.setInterval(function () {
@@ -65,13 +66,11 @@ var app = new Vue({
          * 获取当前时间与库存
          */
         getGoodsById:function (id) {
-
             axios.get('/seckillGoods/getGoodsById.shtml',{
                 params:{
                     id:id
                 }
             }).then(function (response) {
-
                 app.calculate(response.data.time);
                 app.goodInfo = response.data;
             })
@@ -92,7 +91,7 @@ var app = new Vue({
                         }else {
                             if ('403' == response.data.message) {  //跳转登录页面
                                 var url = window.location.href;
-                                window.location.href='http://localhost:9111/page/login.shtml?url='+url
+                                window.location.href='http://localhost:18099/page/login.shtml?url='+url
                             }else {
                                 app.messageInfo = response.data.message+'-----'+seconds;
                             }
@@ -105,8 +104,7 @@ var app = new Vue({
     created:function () {
         //url获取id
         var obj = this.getUrlParam();
-        this.id = 1;
-
+        this.id = obj.id;
         //获取当前时间与库存
         this.getGoodsById(this.id);
     }
