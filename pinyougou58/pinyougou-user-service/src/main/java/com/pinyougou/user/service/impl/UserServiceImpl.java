@@ -1,9 +1,15 @@
 package com.pinyougou.user.service.impl;
 
+import com.pinyougou.mapper.TbOrderItemMapper;
+import com.pinyougou.mapper.TbOrderMapper;
+import com.pinyougou.mapper.TbSellerMapper;
+import com.pinyougou.pojo.TbOrder;
+import com.pinyougou.pojo.TbOrderItem;
+import com.pinyougou.pojo.TbSeller;
+import entity.UserOrderList;
 import com.pinyougou.user.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.common.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
@@ -18,7 +24,8 @@ import tk.mybatis.mapper.entity.Example;
 import com.pinyougou.mapper.TbUserMapper;
 import com.pinyougou.pojo.TbUser;
 
-import java.util.HashMap;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +37,14 @@ import java.util.Map;
  */
 @Service
 public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserService {
+    @Override
+    public TbUser findOne(Object username) {
+        TbUser user = new TbUser();
+        user.setUsername((String) username);
+        TbUser tbUser = userMapper.selectOne(user);
 
+        return tbUser;
+    }
 
     private TbUserMapper userMapper;
 
@@ -39,6 +53,14 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserServ
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private TbOrderMapper orderMapper;
+    @Autowired
+    private TbOrderItemMapper orderItemMapper;
+    @Autowired
+    private TbSellerMapper sellerMapper;
+
 
     //短信模板
     @Value("${sign_name}")

@@ -165,7 +165,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/findOne/{id}")
-    public TbUser findOne(@PathVariable(value = "id") Long id) {
+    public TbUser findOne1(@PathVariable(value = "id") Long id) {
         return userService.findOne(id);
     }
 
