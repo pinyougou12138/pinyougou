@@ -10,11 +10,13 @@ var app = new Vue({
     methods:{
         //提交订单
         submitOrder:function () {   //商品Id
+            console.log(this.id)
             axios.get('/seckillOrder/submitOrder.shtml?id='+this.id).then(function (response) {
                if (response.data.message=='403'){
                    //没有登录
                    var url = window.location.href;
                    window.location.href="http://localhost:9111/page/login.shtml?url="+url
+                   //window.location.href="/page/login.shtml?url="+url;
                }else {
                    app.messageInfo=response.data.message;
                }
@@ -89,7 +91,7 @@ var app = new Vue({
                         }else {
                             if ('403' == response.data.message) {  //跳转登录页面
                                 var url = window.location.href;
-                                window.location.href='http://localhost:9111/page/login.shtml?url='+url
+                                window.location.href='http://localhost:18099/page/login.shtml?url='+url
                             }else {
                                 app.messageInfo = response.data.message+'-----'+seconds;
                             }

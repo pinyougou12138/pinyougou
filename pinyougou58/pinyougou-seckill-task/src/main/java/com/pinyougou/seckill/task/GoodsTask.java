@@ -39,10 +39,12 @@ public class GoodsTask {
             criteria.andNotIn("id",keys);
         }
         Date date = new Date();
-        criteria.andGreaterThan("startTime",date);
+        criteria.andLessThan("startTime",date);
         System.out.println(">>>>>>>>>>>>>>>>>redis>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         //获取数据
+
         List<TbSeckillGoods> seckillGoods = seckillGoodsMapper.selectByExample(example);
+
         //存入redis
         for (TbSeckillGoods seckillGood : seckillGoods) {
             redisTemplate.boundHashOps("TbSeckillGoods").put(seckillGood.getId(),seckillGood);
