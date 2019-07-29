@@ -43,7 +43,7 @@ public class UploadFileController {
             String file_id= fastDFSClient.uploadFile(bytes, extName); //     group1/M00/00/05/wKgZhVzaOmmABd6qAAClQrJOYvs167.jpg
 
             //拼接 url
-            String realUrl= "http://192.168.25.133/"+file_id;
+            String realUrl= "http://192.168.25.129/"+file_id;
 
             return new Result(true,realUrl);
 
