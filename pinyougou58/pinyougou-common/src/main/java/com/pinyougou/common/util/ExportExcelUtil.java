@@ -1,12 +1,13 @@
 package com.pinyougou.common.util;
 
 
-import com.pinyougou.common.pojo.Student;
 import org.apache.poi.hssf.usermodel.*;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 public class ExportExcelUtil {
 //    public static void main(String[] args) throws IOException {
@@ -181,7 +182,7 @@ public class ExportExcelUtil {
      *                                columnWidth   列宽
      *                                dataKey       列对应的 dataList item key
      * @param dataList  List<Map<String, Object>> 导出的数据
-     * @throws java.io.IOException
+     * @throws IOException
      *
      */
     public static void exportExcel2FilePath(String sheetName, String filePath,
