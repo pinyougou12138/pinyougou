@@ -2,8 +2,8 @@ package com.pinyougou.shop.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.pagehelper.PageInfo;
-import com.pinyougou.pojo.TbItemCat;
-import com.pinyougou.sellergoods.service.ItemCatService;
+import com.pinyougou.pojo.TbBrand;
+import com.pinyougou.sellergoods.service.BrandService;
 import entity.Result;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,56 +15,55 @@ import java.util.List;
  *
  */
 @RestController
-@RequestMapping("/itemCat")
-public class ItemCatController {
+@RequestMapping("/brand")
+public class BrandController {
 
 	@Reference
-	private ItemCatService itemCatService;
+	private BrandService brandService;
 	
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbItemCat> findAll(){			
-		return itemCatService.findAll();
+	public List<TbBrand> findAll(){			
+		return brandService.findAll();
 	}
 	
 	
 	
 	@RequestMapping("/findPage")
-    public PageInfo<TbItemCat> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
+    public PageInfo<TbBrand> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
                                       @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
-        return itemCatService.findPage(pageNo, pageSize);
+        return brandService.findPage(pageNo, pageSize);
     }
 	
 	/**
 	 * 增加
-	 * @param itemCat
+	 * @param brand
 	 * @return
 	 */
-		@RequestMapping("/add")
-	public Result add(@RequestBody TbItemCat itemCat){
+	@RequestMapping(value = "/add")
+	public Result add(@RequestBody TbBrand brand){
 		try {
-
-			itemCat.setAuditStatus("0");
-			itemCatService.add(itemCat);
-			return new Result(true, "增加成功");
+			brand.setAuditStatus("0");
+			brandService.add(brand);
+			return new Result(true, "申请成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new Result(false, "增加失败");
+			return new Result(false, "申请失败");
 		}
 	}
 	
 	/**
 	 * 修改
-	 * @param itemCat
+	 * @param brand
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public Result update(@RequestBody TbItemCat itemCat){
+	public Result update(@RequestBody TbBrand brand){
 		try {
-			itemCatService.update(itemCat);
+			brandService.update(brand);
 			return new Result(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,8 +77,8 @@ public class ItemCatController {
 	 * @return
 	 */
 	@RequestMapping("/findOne/{id}")
-	public TbItemCat findOne(@PathVariable(value = "id") Long id){
-		return itemCatService.findOne(id);		
+	public TbBrand findOne(@PathVariable(value = "id") Long id){
+		return brandService.findOne(id);		
 	}
 	
 	/**
@@ -90,7 +89,7 @@ public class ItemCatController {
 	@RequestMapping("/delete")
 	public Result delete(@RequestBody Long[] ids){
 		try {
-			itemCatService.delete(ids);
+			brandService.delete(ids);
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,16 +100,10 @@ public class ItemCatController {
 	
 
 	@RequestMapping("/search")
-    public PageInfo<TbItemCat> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
+    public PageInfo<TbBrand> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
                                       @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-                                      @RequestBody TbItemCat itemCat) {
-        return itemCatService.findPage(pageNo, pageSize, itemCat);
+                                      @RequestBody TbBrand brand) {
+        return brandService.findPage(pageNo, pageSize, brand);
     }
-
-    @RequestMapping("/findByParentId/{parentId}")
-	public List<TbItemCat> findByParentId(@PathVariable(name="parentId") Long parentId){
-
-		return itemCatService.findByParentId(parentId);
-	}
 	
 }
