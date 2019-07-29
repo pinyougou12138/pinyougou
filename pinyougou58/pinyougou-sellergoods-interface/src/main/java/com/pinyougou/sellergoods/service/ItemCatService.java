@@ -1,5 +1,7 @@
 package com.pinyougou.sellergoods.service;
 import java.util.List;
+import java.util.Map;
+
 import com.pinyougou.pojo.TbItemCat;
 
 import com.github.pagehelper.PageInfo;
@@ -33,4 +35,11 @@ public interface ItemCatService extends CoreService<TbItemCat> {
 	List<TbItemCat> findByParentId(Long parentId);
 
     void updateStatus(Long[] ids, String status);
+
+	/***
+	 * 获取二三级分类
+	 * @param parentId
+	 * @return
+	 */
+	Map<Long,List<TbItemCat>> findByParentId23(Long parentId);
 }

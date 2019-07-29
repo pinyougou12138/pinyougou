@@ -47,11 +47,11 @@ public class PayController {
     public Result queryPayStatus(String out_trade_no) {
         Result result = new Result(false, "支付失败");
         try {
-            //发送5分钟 100次请求
+            //发送1分钟 20次请求
             int count = 0;
             while (true) {
                 //支付超时
-                if (count > 100) {
+                if (count > 20) {
                     result = new Result(false, "支付超时");
                     break;
                 }

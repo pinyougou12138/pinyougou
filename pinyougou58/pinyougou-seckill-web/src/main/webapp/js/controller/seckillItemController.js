@@ -14,7 +14,7 @@ var app = new Vue({
                if (response.data.message=='403'){
                    //没有登录
                    var url = window.location.href;
-                   window.location.href="http://localhost:18099/page/login.shtml?url="+url
+                   window.location.href="http://localhost:9111/page/login.shtml?url="+url
                }else {
                    app.messageInfo=response.data.message;
                }
@@ -89,7 +89,7 @@ var app = new Vue({
                         }else {
                             if ('403' == response.data.message) {  //跳转登录页面
                                 var url = window.location.href;
-                                window.location.href='http://localhost:18099/page/login.shtml?url='+url
+                                window.location.href='http://localhost:9111/page/login.shtml?url='+url
                             }else {
                                 app.messageInfo = response.data.message+'-----'+seconds;
                             }

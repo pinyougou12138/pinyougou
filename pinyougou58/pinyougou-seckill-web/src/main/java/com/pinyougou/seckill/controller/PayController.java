@@ -54,7 +54,7 @@ public class PayController {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         Result result = new Result(false, "支付失败");
         try {
-            //发送5分钟 100次请求
+            //发送30秒 10次请求
             int count = 0;
             while (true) {
                 count++;

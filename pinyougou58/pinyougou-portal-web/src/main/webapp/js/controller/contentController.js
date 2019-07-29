@@ -8,9 +8,56 @@
         ids:[],
         searchEntity:{},
         contentList:[],
-        keywords:''
+        keywords:'',
+        entity:{},
+        itemCat1List:[],
+        itemCat2List:[],
+        itemCat3List:[],
+        itemCat23:[],
+        id1:0,
+        id2:0
     },
     methods: {
+
+        /***
+         * 二三级目录
+         * @param parentId
+         */
+        findByParentId23:function (parentId) {
+            axios.get('/itemCat/findByParentId23/'+parentId+'.shtml').then(function (response) {
+                console.log(response.data);
+                app.itemCat23=response.data;
+            })
+        },
+
+        findByParentId3:function (parentId) {
+            axios.get('/itemCat/findByParentId/'+parentId+'.shtml').then(function (response) {
+                app.itemCat3List=response.data;
+
+            }).catch(function (error) {
+                console.log("1231312131321");
+            });
+        },
+
+        findByParentId2:function (parentId) {
+            axios.get('/itemCat/findByParentId/'+parentId+'.shtml').then(function (response) {
+                app.itemCat2List=response.data;
+
+            }).catch(function (error) {
+                console.log("1231312131321");
+            });
+        },
+
+        //获取一级分类的类别的方法
+        findByParentId:function (parentId) {
+            axios.get('/itemCat/findByParentId/'+parentId+'.shtml').then(function (response) {
+                app.itemCat1List=response.data;
+
+            }).catch(function (error) {
+                console.log("1231312131321");
+            });
+        },
+
         doSearch:function () {
             window.location.href="http://localhost:18086/search.html?keywords="+encodeURIComponent(this.keywords);
         },
@@ -111,5 +158,6 @@
     //钩子函数 初始化了事件和
     created: function () {
         this.findByCategoryId(1);
+        this.findByParentId(0);
     }
 })
