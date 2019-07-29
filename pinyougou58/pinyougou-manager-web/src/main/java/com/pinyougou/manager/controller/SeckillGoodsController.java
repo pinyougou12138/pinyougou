@@ -101,7 +101,11 @@ public class SeckillGoodsController {
 	public Result delete(@RequestBody Long[] ids){
 		try {
 			seckillGoodsService.delete(ids);
-			return new Result(true, "删除成功"); 
+			//发送消息 删除静态页面
+			MessageInfo messageInfo = new MessageInfo(ids,"TOPIC_SECKILL","Tags_SECKILL","seckillGoods_delete",MessageInfo.METHOD_DELETE);
+			Message message = new Message(messageInfo.getTopic(),messageInfo.getTags(),messageInfo.getKeys(),JSON.toJSONString(messageInfo).getBytes());
+			SendResult send = producer.send(message);
+			return new Result(true,"删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "删除失败");
@@ -132,8 +136,8 @@ public class SeckillGoodsController {
 			tbSeckillGoods.setId(id);
 			seckillGoodsService.updateByPrimaryKeySelective(tbSeckillGoods);
 		}
-			//rocketMq 发送消息生成秒杀商品静态页面
-			MessageInfo messageInfo = new MessageInfo(ids,"TOPIC_SECKILL","Tags_genHtml","seckillGoods_updateStatus",MessageInfo.METHOD_ADD);
+			//rocketMq 发送消息生成秒杀商品静态页面 与 elasticSearch索引
+			MessageInfo messageInfo = new MessageInfo(ids,"TOPIC_SECKILL","Tags_SECKILL","seckillGoods_updateStatus",MessageInfo.METHOD_ADD);
 			Message message = new Message(messageInfo.getTopic(),messageInfo.getTags(),messageInfo.getKeys(), JSON.toJSONString(messageInfo).getBytes());
 			SendResult send = producer.send(message);
 			System.out.println(send);

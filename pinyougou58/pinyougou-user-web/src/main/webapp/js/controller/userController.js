@@ -201,7 +201,7 @@
         },
         //查看用户信息数据回显
         findOne: function () {
-            axios.get('/user/findOne.shtml').then(function (response) {
+            axios.get('/user/findOneByUsername.shtml').then(function (response) {
                 app.entity = response.data;
                 var date = new Date();
                 date.setTime(response.data.birthday);

@@ -168,6 +168,12 @@ public class UserController {
     public TbUser findOne1(@PathVariable(value = "id") Long id) {
         return userService.findOne(id);
     }
+    @RequestMapping("/findOneByUsername")
+    public TbUser findOne() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        TbUser tbUser = userService.findOne(username);
+        return tbUser;
+    }
 
     /**
      * 批量删除

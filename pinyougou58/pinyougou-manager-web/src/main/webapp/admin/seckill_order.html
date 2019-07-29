@@ -63,33 +63,33 @@
                     <th class="" style="padding-right:0px">
                         <input id="selall" type="checkbox" class="icheckbox_square-blue">
                     </th>
-                    <th class="sorting_asc">商品ID</th>
-                    <th class="sorting">商品名称</th>
-                    <th class="sorting">商品价格</th>
-                    <th class="sorting">秒杀价</th>
-                    <th class="sorting">开始时间</th>
-                    <th class="sorting">结束时间</th>
-                    <th class="sorting">数量</th>
-                    <th class="sorting">库存量</th>
+                    <th class="sorting_asc">秒杀商品ID</th>
+                    <th class="sorting">支付金额</th>
+                    <th class="sorting">用户</th>
+                    <th class="sorting">商家</th>
+                    <th class="sorting">创建时间</th>
+                    <th class="sorting">支付时间</th>
                     <th class="sorting">状态</th>
-                    <th class="text-center">操作</th>
+                    <th class="sorting">收获人地址</th>
+                    <th class="sorting">收获电话</th>
+                    <th class="sorting">收货人</th>
+                    <th class="text-center">交易流水</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item in list">
+                <tr v-for="item in orderList">
                     <td><input :value="item.id" v-model="ids" type="checkbox"></td>
-                    <td>{{item.id}}</td>
-                    <td>{{item.title}}</td>
-                    <td>{{item.price}}</td>
-                    <td>{{item.costPrice}}</td>
-                    <td>{{item.startTime}}</td>
-                    <td>{{item.endTime}}</td>
-                    <td>{{item.num}}</td>
-                    <td>{{item.stockCount}}</td>
+                    <td>{{item.seckillId}}</td>
+                    <td>{{item.money}}</td>
+                    <td>{{item.userId}}</td>
+                    <td>{{item.sellerId}}</td>
+                    <td>{{item.createTime}}</td>
+                    <td>{{item.payTime}}</td>
                     <td>{{status[item.status]}}</td>
-                    <td class="text-center">
-                        <button type="button" class="btn bg-olive btn-xs">详情</button>
-                    </td>
+                    <td>{{item.receiverAddress}}</td>
+                    <td>{{item.receiverMobile}}</td>
+                    <td>{{item.receiver}}</td>
+                    <td>{{item.transactionId}}</td>
                 </tr>
 
                 </tbody>
@@ -97,7 +97,7 @@
             <!--数据列表/-->
 
             <!--分页条-->
-            <navigation :pages="pages"  @navpage="searchList"></navigation>
+            <navigation :pages="pages" @navpage="searchList"></navigation>
 
         </div>
         <!-- 数据表格 /-->
@@ -109,7 +109,7 @@
 <script src="../plugins/vue/vue.js"></script>
 <script src="../plugins/axios/axios.js"></script>
 <script src="../js/pagination.js"></script>
-<script src="../js/controller/seckillGoodsController.js"></script>
+<script src="../js/controller/seckillOrderController.js"></script>
 
 </body>
 
