@@ -19,7 +19,23 @@ public class  BrandController {
 
 	@Reference
 	private BrandService brandService;
-	
+
+	/**
+	 * 导入数据到数据库
+	 */
+	@RequestMapping("/importBrandList")
+	public Result importBrandList(){
+		Result result = null;
+		try {
+			brandService.importBrandList();
+			result = new Result(true,"导入成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = new Result(false,"导入失败");
+		}
+		return  result;
+	}
+
 	/**
 	 * 返回全部列表
 	 * @return
