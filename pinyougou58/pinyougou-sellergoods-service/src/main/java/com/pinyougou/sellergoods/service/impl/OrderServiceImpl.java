@@ -1,6 +1,7 @@
 package com.pinyougou.sellergoods.service.impl;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.pinyougou.mapper.TbOrderItemMapper;
 import com.pinyougou.pojo.TbOrderItem;
@@ -39,6 +40,34 @@ public class OrderServiceImpl extends CoreServiceImpl<TbOrder>  implements Order
 	}
 	@Autowired
 	private  TbOrderItemMapper tbOrderItemMapper;
+
+	@Override
+	public Map<String, Object> paymentGroupBySellerId() {
+		Example exmaple = new Example(TbOrder.class);
+		exmaple.createCriteria().andIsNotNull("sellerId");
+		List<TbOrder> orders = orderMapper.selectByExample(exmaple);
+
+//        //根据日期分组
+		Map<String, List<TbOrder>> sellIdListMap = orders.stream().collect(Collectors.groupingBy(TbOrder::getSellerId));
+
+		HashMap<String, Object> sellIdMap = new HashMap<>(128);
+		for (Map.Entry<String, List<TbOrder>> sellerIdListEntry : sellIdListMap.entrySet()) {
+//            System.out.println(sellerIdListEntry.getKey());
+			List<TbOrder> orderList = sellIdListMap.get(sellerIdListEntry.getKey());
+			//拿出该商家的所有订单
+			Double sellIdTotalMoney= new Double(0);
+			for (TbOrder tbOrder : orderList) {
+//                 sellIdTotalMoney += tbOrder.getPayment().doubleValue();
+				sellIdTotalMoney += tbOrder.getPayment().doubleValue()*100;
+
+			}
+			sellIdMap.put(sellerIdListEntry.getKey(),sellIdTotalMoney/100);
+		}
+
+
+
+		return sellIdMap;
+	}
 
 	@Override
     public PageInfo<TbOrder> findPage(Integer pageNo, Integer pageSize) {
