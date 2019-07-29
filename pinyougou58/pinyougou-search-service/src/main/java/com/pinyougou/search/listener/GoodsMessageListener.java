@@ -3,7 +3,6 @@ package com.pinyougou.search.listener;
 import com.alibaba.fastjson.JSON;
 import com.pinyougou.common.pojo.MessageInfo;
 import com.pinyougou.pojo.TbItem;
-import com.pinyougou.search.dao.ItemSearchDao;
 import com.pinyougou.search.service.ItemSearchService;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -25,10 +24,9 @@ public class GoodsMessageListener implements MessageListenerConcurrently {
             //List<MessageExt> list  就是传过来的message
             if (list != null && list.size() > 0) {
                 for (MessageExt messageExt : list) {
-
                     byte[] body = messageExt.getBody();
-                    //MessageInfo messageInfo  = JSON.parseObject(body, MessageInfo.class);
-                    MessageInfo messageInfo = JSON.parseObject(body.toString(), MessageInfo.class);
+                    String s = new String(body);
+                    MessageInfo messageInfo = JSON.parseObject(s, MessageInfo.class);
 
                     int method = messageInfo.getMethod();
                     switch (method) {

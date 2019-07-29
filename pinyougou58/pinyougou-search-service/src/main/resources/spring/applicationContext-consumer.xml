@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean class="com.pinyougou.search.listener.GoodsMessageListener" id="messageListener"></bean>
-
+    <!--goods-->
     <bean class="org.apache.rocketmq.client.consumer.DefaultMQPushConsumer" id="defaultMQPushConsumer" init-method="start" destroy-method="shutdown">
         <property name="namesrvAddr" value="192.168.25.129:9876"></property>
         <property name="consumerGroup" value="consumer_search_group"></property>
@@ -16,6 +16,22 @@
         </property>
         <property name="messageModel" value="CLUSTERING"></property>
         <property name="messageListener" ref="messageListener"></property>
+    </bean>
+
+
+    <!--secKillGoods-->
+    <bean class="com.pinyougou.search.listener.secKillMessageListener" id="secKillMessageListener"></bean>
+
+    <bean class="org.apache.rocketmq.client.consumer.DefaultMQPushConsumer" id="secKillConsumer" init-method="start" destroy-method="shutdown">
+        <property name="namesrvAddr" value="192.168.25.129:9876"></property>
+        <property name="consumerGroup" value="consumer_secKillSearch_group"></property>
+        <property name="subscription">
+            <map>
+                <entry key="TOPIC_SECKILL" value="Tags_SECKILL"></entry>
+            </map>
+        </property>
+        <property name="messageModel" value="CLUSTERING"></property>
+        <property name="messageListener" ref="secKillMessageListener"></property>
     </bean>
 
 </beans>
