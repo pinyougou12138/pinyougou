@@ -14,6 +14,7 @@
             axios.post("/user/exportUserData.shtml").then(function (response) {
                 if (response.data.success) {
                     //导出成功
+                    alert("导出成功，请查看桌面");
                     console.log(response.data.message);
                 }
             })
