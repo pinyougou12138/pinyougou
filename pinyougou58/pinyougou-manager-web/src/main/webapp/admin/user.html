@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>品牌管理</title>
+    <title>用户管理</title>
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
@@ -16,10 +16,10 @@
 </head>
 <body class="hold-transition skin-red sidebar-mini">
 <div id="app">
-    {{list}}
+    <!--{{list}}-->
   <!-- .box-body -->
                     <div class="box-header with-border">
-                        <h3 class="box-title">品牌管理</h3>
+                        <h3 class="box-title">用户管理</h3>
                     </div>
 
                     <div class="box-body">
@@ -32,16 +32,15 @@
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default" @click="entity={}" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" @click="dele()" ><i class="fa fa-trash-o"></i> 删除</button>
-                                        <button type="button" class="btn btn-default" title="导入" @click="importBrandList()" ><i class="fa fa-trash-o"></i> 导入</button>
+                                        <button type="button" class="btn btn-default" title="冻结" @click="updateUserStatus('N')" ><i class="fa fa-trash-o"></i> 冻结</button>
+                                        <button type="button" class="btn btn-default" title="导出" @click="exportUserData()" ><i class="fa fa-trash-o"></i> 导出</button>
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-									品牌名称：<input type="text" v-model="searchEntity.name">
-									首字母：<input type="text" v-model="searchEntity.firstChar">
+									用户名称：<input type="text" v-model="searchEntity.username">
 									<button @click="searchList(1)">搜索</button>
                                 </div>
                             </div>
@@ -54,19 +53,37 @@
 			                              <th class="" style="padding-right:0px">
 			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
 			                              </th>
-										  <th class="sorting_asc">品牌ID</th>
-									      <th class="sorting">品牌名称</th>
-									      <th class="sorting">品牌首字母</th>
-					                      <th class="text-center">操作</th>
-			                          </tr>
+										  <th class="sorting_asc">用户ID</th>
+									      <th class="sorting">用户名</th>
+									      <th class="sorting">手机号</th>
+									      <th class="sorting">邮箱</th>
+									      <th class="sorting">创建时间</th>
+									      <th class="sorting">会员来源</th>
+										  <th class="sorting">昵称</th>
+										  <th class="sorting">真实姓名</th>
+										  <th class="sorting">使用状态</th>
+										  <th class="sorting">QQ</th>
+										  <th class="sorting">余额</th>
+										  <th class="sorting">最近登陆</th>
+										  <th class="text-center">操作</th>
+									  </tr>
 			                      </thead>
-								  {{ids}}
+								  <!--{{ids}}-->
 			                      <tbody>
 			                          <tr v-for="entity in list">
 			                              <td><input  type="checkbox" :value="entity.id" v-model="ids" ></td>
 				                          <td >{{entity.id}}</td>
-									      <td>{{entity.name}}</td>
-		                                  <td>{{entity.firstChar}}</td>
+									      <td>{{entity.username}}</td>
+		                                  <td>{{entity.phone}}</td>
+		                                  <td>{{entity.email}}</td>
+		                                  <td>{{entity.created==undefined?'无':formatDate(entity.created)}}</td>
+		                                  <td>{{entity.sourceType}}</td>
+		                                  <td>{{entity.nickName}}</td>
+		                                  <td>{{entity.name}}</td>
+		                                  <td>{{userStatus[entity.status]}}</td>
+		                                  <td>{{entity.qq}}</td>
+		                                  <td>{{entity.accountBalance}}</td>
+		                                  <td>{{entity.lastLoginTime==undefined?'无':formatDate(entity.lastLoginTime)}}</td>
 		                                  <td class="text-center">
 		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" @click="findOne(entity.id)"  >修改</button>
 		                                  </td>
@@ -92,14 +109,14 @@
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel">品牌编辑</h3>
+			<h3 id="myModalLabel">用户编辑</h3>
 		</div>
 		<div class="modal-body">
 			<table class="table table-bordered table-striped"  width="800px">
 				{{entity}}
 		      	<tr>
-		      		<td>品牌名称</td>
-		      		<td><input  class="form-control"  v-model="entity.name" placeholder="品牌名称" >  </td>
+		      		<td>用户名称</td>
+		      		<td><input  class="form-control"  v-model="entity.username" placeholder="用户名称" >  </td>
 		      	</tr>
 		      	<tr>
 		      		<td>首字母</td>
@@ -115,11 +132,12 @@
 	</div>
 </div>
 </div>
-<!--引入js-->
+
 <!--引入JS-->
 <script src="../plugins/vue/vue.js"></script>
 <script src="../plugins/axios/axios.js"></script>
 <script src="../js/pagination.js"></script>
-<script src="../js/controller/brandController.js"></script>
+<script src="../js/controller/userController.js"></script>
+
 </body>
 </html>
