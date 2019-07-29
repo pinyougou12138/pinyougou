@@ -114,7 +114,8 @@ public class ItemCatController {
 	@RequestMapping("/findByParentId/{parentId}")
 	public List<TbItemCat> findByParentId(@PathVariable(name="parentId") Long parentId){
 
-		return itemCatService.findByParentId(parentId);
+		List<TbItemCat> list = itemCatService.findByParentId(parentId);
+		return list;
 	}
 
 	/***
@@ -124,7 +125,8 @@ public class ItemCatController {
 	 */
 	@RequestMapping("/findByParentId23/{parentId}")
 	public Map<Long,List<TbItemCat>> findByParentId23(@PathVariable(name="parentId") Long parentId){
-		return itemCatService.findByParentId23(parentId);
+		Map<Long, List<TbItemCat>> list = itemCatService.findByParentId23(parentId);
+		return list;
 	}
 	
 }

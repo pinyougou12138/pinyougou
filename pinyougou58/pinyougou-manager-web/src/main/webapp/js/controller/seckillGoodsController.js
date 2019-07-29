@@ -6,6 +6,7 @@
         list:[],
         entity:{},
         ids:[],
+        status:['未审核','已审核','审核未通过','已关闭'],
         searchEntity:{}
     },
     methods: {
@@ -92,11 +93,15 @@
                 console.log("1231312131321");
             });
         },
+
+        //删除
         dele:function () {
             axios.post('/seckillGoods/delete.shtml',this.ids).then(function (response) {
                 console.log(response);
                 if(response.data.success){
                     app.findPage();
+                    app.ids=[];
+                    app.searchList(1);
                 }
             }).catch(function (error) {
                 console.log("1231312131321");
