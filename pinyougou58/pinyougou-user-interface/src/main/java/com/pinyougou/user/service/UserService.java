@@ -1,9 +1,10 @@
 package com.pinyougou.user.service;
-import java.util.List;
 import com.pinyougou.pojo.TbUser;
 
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.core.service.CoreService;
+
+
 /**
  * 服务层接口
  * @author Administrator
@@ -18,8 +19,6 @@ public interface UserService extends CoreService<TbUser> {
 	 * @return
 	 */
 	 PageInfo<TbUser> findPage(Integer pageNo, Integer pageSize);
-	
-	
 
 	/**
 	 * 分页
