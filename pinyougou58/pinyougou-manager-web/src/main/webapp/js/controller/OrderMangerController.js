@@ -8,9 +8,17 @@
         ids:[],
         sta:['未付款','已付款','未发货','已发货','交易成功','交易关闭','待评价'],
         totalOrder:'',
+        totalUsers:'',
         searchEntity:{}
     },
     methods: {
+        countTotalUsers:function () {
+            axios.post("/user/countTotalUsers.shtml").then(function (response) {
+                if (response.data) {
+                    app.totalUsers=response.data.message
+                }
+            })
+        },
 
         searchList:function (curPage) {
                 axios.post('/orderManger/search.shtml?pageNo='+curPage,this.searchEntity).then(function (response) {
@@ -95,7 +103,7 @@
       
         this.searchList(1);
         this.findAll();
-
+        this.countTotalUsers();
     }
 
 })

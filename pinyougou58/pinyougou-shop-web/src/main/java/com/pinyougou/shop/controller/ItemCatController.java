@@ -43,9 +43,11 @@ public class ItemCatController {
 	 * @param itemCat
 	 * @return
 	 */
-	@RequestMapping("/add")
+		@RequestMapping("/add")
 	public Result add(@RequestBody TbItemCat itemCat){
 		try {
+
+			itemCat.setAuditStatus("0");
 			itemCatService.add(itemCat);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {

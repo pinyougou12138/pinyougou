@@ -32,7 +32,7 @@ var app = new Vue({
          * 加载商品页面即添加至用户我的足迹浏览记录
          */
         addToFootmark:function () {
-            axios.get('http://localhost:9106/footmark/add.shtml',{
+            axios.get('/footmark/add.shtml',{
                 params:{
                     itemId:this.sku.id,
                 },

@@ -1,15 +1,23 @@
 package com.pinyougou.pojo;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Table(name = "tb_seckill_goods")
+@Document(indexName = "pinyougou", type = "secKill")
 public class TbSeckillGoods implements Serializable {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Field
+    @org.springframework.data.annotation.Id
     private Long id;
 
     /**
@@ -28,18 +36,21 @@ public class TbSeckillGoods implements Serializable {
      * 标题
      */
     @Column(name = "title")
+    @Field(index = true, analyzer = "ik_smart", searchAnalyzer = "ik_smart", type = FieldType.Text, copyTo = "keyword")
     private String title;
 
     /**
      * 商品图片
      */
     @Column(name = "small_pic")
+    @Field(index = false, type = FieldType.Text)
     private String smallPic;
 
     /**
      * 原价格
      */
     @Column(name = "price")
+    @Field(type = FieldType.Double)
     private BigDecimal price;
 
     /**
@@ -85,7 +96,7 @@ public class TbSeckillGoods implements Serializable {
     private Date endTime;
 
     /**
-     * 秒杀商品库存数量 
+     * 秒杀商品库存数量
      */
     @Column(name = "num")
     private Integer num;

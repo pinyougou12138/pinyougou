@@ -30,7 +30,7 @@ public class PageMessageListener implements MessageListenerConcurrently {
     @Autowired
     private TbSeckillGoodsMapper seckillGoodsMapper;
 
-    @Value("${PageDir}")
+    @Value("E:\\develop\\GitRepositories\\pinyougou\\pinyougou58\\pinyougou-seckill-web\\src\\main\\webapp\\")
     private String PageDir;
 
     @Override
@@ -55,7 +55,7 @@ public class PageMessageListener implements MessageListenerConcurrently {
                         //删除静态页面
                         if (messageInfo.getMethod() == MessageInfo.METHOD_DELETE) {
                             for (Long aLong : longs) {
-                                File file = new File("E:\\ideaworkspace\\pinyougou58\\pinyougou-seckill-web\\src\\main\\webapp\\" + aLong + ".html");
+                                File file = new File(PageDir + aLong + ".html");
                                 file.delete();
                             }
                         }

@@ -178,7 +178,7 @@
             });
         },
         update: function () {
-            var day = this.birthYear+'-'+this.birthMonth+'-'+this.birthDay
+            var day = this.birthYear+'-'+this.birthMonth+'-'+this.birthDay;
             var dateInput = new Date(day);
             this.$set(app.entity,'birthday',dateInput);
             this.$set(app.entity,'district',app.district);

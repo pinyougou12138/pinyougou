@@ -59,7 +59,7 @@
         },
 
         doSearch:function () {
-            window.location.href="http://localhost:18086/search.html?keywords="+encodeURIComponent(this.keywords);
+            window.location.href="http://localhost:9104/search.html?keywords="+encodeURIComponent(this.keywords);
         },
 
         findByCategoryId:function (categoryId) {

@@ -144,6 +144,26 @@
 	</div>
 </div>
 
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#service").hover(function () {
+                $(".service").show();
+            }, function () {
+                $(".service").hide();
+            });
+            $("#shopcar").hover(function () {
+                $("#shopcarlist").show();
+            }, function () {
+                $("#shopcarlist").hide();
+            });
+
+        })
+    </script>
+    <script type="text/javascript" src="js/plugins/jquery.easing/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
+    <script type="text/javascript" src="js/widget/nav.js"></script>
 
 </body>
     <!--header-->
@@ -200,7 +220,7 @@
 												<div class="attr"><em>{{orderItem.title}}</em></div>
 												<div class="cu"><em><span>促</span>{{cart.sellerName}}</em></div>
 												<div class="operate">
-													<a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+													<a @ckick="addGoodsToCartList(orderItem.itemId,1)" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
 													<a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
 													<a href="javascript:void(0);" class="sui-btn btn-bordered">降价通知</a>
 												</div>
@@ -440,7 +460,6 @@
 </div>
 <script src="plugins/vue/vue.js"></script>
 <script src="plugins/axios/axios.js"></script>
-<script src="js/controller/homePersonCollect.js"></script>
 <script src="js/controller/userCartController.js"></script>
 
 </html>

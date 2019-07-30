@@ -76,7 +76,7 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserServ
                 }
                 dataList.add(dataItem);
             }
-            ExportExcelUtil.exportExcel2FilePath("user sheet 1","C:\\Users\\13790\\Desktop\\user.xls", headInfoList, dataList);
+            ExportExcelUtil.exportExcel2FilePath("user sheet 1","C:\\Users\\drever\\Desktop\\user.xls", headInfoList, dataList);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
@@ -175,8 +175,8 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserServ
                 criteria.andLike("nickName", "%" + user.getNickName() + "%");
                 //criteria.andNickNameLike("%"+user.getNickName()+"%");
             }
-            if (StringUtils.isNotBlank(user.getName())) {
-                criteria.andLike("name", "%" + user.getName() + "%");
+            if (StringUtils.isNotBlank(user.getJob())) {
+                criteria.andLike("name", "%" + user.getJob() + "%");
                 //criteria.andNameLike("%"+user.getName()+"%");
             }
             if (StringUtils.isNotBlank(user.getStatus())) {
