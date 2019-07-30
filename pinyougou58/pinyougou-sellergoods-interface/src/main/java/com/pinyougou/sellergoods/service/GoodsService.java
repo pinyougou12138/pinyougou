@@ -48,4 +48,7 @@ public interface GoodsService extends CoreService<TbGoods> {
 	void delete(Object[] ids);
 
     List<TbItem> findTbItemListByIds(Long[] ids);
+
+    /*wql  根据id 查找一个数据 用于秒杀申请*/
+    TbItem findOneSKU(Long id);
 }
