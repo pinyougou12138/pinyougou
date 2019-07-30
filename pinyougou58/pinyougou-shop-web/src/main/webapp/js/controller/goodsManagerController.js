@@ -8,9 +8,20 @@
         ids:[],
         searchEntity:{},
         status:['未审核','已审核','审核未通过','已关闭'],
+        sellStatus:['未上架','已上架','下架','删除'],
         itemCatList:[]
     },
     methods: {
+        //批量上架商品
+        updateIsMarketable:function (status) {
+            axios.post('/goods/isMarketable/'+status+'.shtml',this.ids).then(function (response) {
+                if(response.data.success){
+                    app.ids=[];
+                    app.searchList(1);
+                }
+            });
+        },
+
         searchList:function (curPage) {
             axios.post('/goods/search.shtml?pageNo='+curPage,this.searchEntity).then(function (response) {
                 //获取数据

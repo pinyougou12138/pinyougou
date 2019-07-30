@@ -39,8 +39,6 @@ public class GoodsController {
 	@Reference
 	private ItemPageService itemPageService;
 
-	@Autowired
-	private DefaultMQProducer defaultMQProducer;
 	/**
 	 * 返回全部列表
 	 * @return
@@ -104,34 +102,6 @@ public class GoodsController {
 		try {
 			//修改数据库
 			goodsService.updateStatus(status,ids);
-			//添加索引
-			if ("1".equals(status)) {
-				//通过spu goodsId查询sku
-				/*List<TbItem> tbItemList = goodsService.findTbItemListByIds(ids);
-				//加入es服务器数据
-				itemSearchService.updateIndex(tbItemList);*/
-
-				//创建sku静态文件
-				/*for (Long id : ids) {
-					itemPageService.genItemHtml(id);
-				}*/
-
-				//获取存入索引对象
-				List<TbItem> tbItemList = goodsService.findTbItemListByIds(ids);
-				//设置message-- topic tag key body methods
-				MessageInfo messageInfo = new MessageInfo(tbItemList,"goodsUpdate",
-						"goods_update_tag","updateStatus",MessageInfo.METHOD_UPDATE);
-
-				Message message = new Message(messageInfo.getTopic(),messageInfo.getTags(),
-						messageInfo.getKeys(),JSON.toJSONString(messageInfo).getBytes());
-
-				//发送消息
-				defaultMQProducer.setSendMsgTimeout(10000);
-				SendResult send = defaultMQProducer.send(message);
-
-				System.out.println("JSON.toJSONString(messageInfo)"+JSON.toJSONString(messageInfo));
-				System.out.println(send.getSendStatus());
-			}
 			return new Result(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -159,18 +129,6 @@ public class GoodsController {
 		try {
 			//删除数据库
 			goodsService.delete(ids);
-			//删除es服务器索引
-			//itemSearchService.deleteByIds(ids);
-
-			//消息队列
-			//设置message
-			MessageInfo messageInfo = new MessageInfo(ids,"Goods_Topic","goods_delete_tag",
-															"delete",MessageInfo.METHOD_DELETE);
-
-			Message message = new Message(messageInfo.getTopic(),messageInfo.getTags(),
-					messageInfo.getKeys(),JSON.toJSONString(messageInfo).getBytes());
-			//发送message
-			defaultMQProducer.send(message);
 			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();

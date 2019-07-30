@@ -21,76 +21,90 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
+/**
+ * 描述
+ *
+ * @author 三国的包子
+ * @version 1.0
+ * @package com.pinyougou.page.service.impl *
+ * @since 1.0
+ */
 @Service
 public class ItemPageServiceImpl implements ItemPageService {
 
     @Autowired
-    TbGoodsMapper goodsMapper;
+    private TbGoodsMapper goodsMapper;
 
     @Autowired
-    TbGoodsDescMapper goodsDescMapper;
+    private TbGoodsDescMapper goodsDescMapper;
 
     @Autowired
-    FreeMarkerConfigurer freeMarkerConfigurer;
+    private FreeMarkerConfigurer configurer;
 
     @Autowired
-    TbItemMapper itemMapper;
+    private TbItemMapper itemMapper;
 
     @Override
-    public void genItemHtml(Long goodsId) {
-        //获取goodsId 对应的goods goodsDesc
-        TbGoods tbGoods = goodsMapper.selectByPrimaryKey(goodsId);
-        TbGoodsDesc tbGoodsDesc = goodsDescMapper.selectByPrimaryKey(goodsId);
-        //调用genHTML 生成html
-        genHTML("item.ftl", tbGoods, tbGoodsDesc);
+    public void genItemHtml(Long id) {
+        //1.根据SPU的ID  获取到SPU的信息（包括 描述的信息）
+        TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+
+        TbGoodsDesc tbGoodsDesc = goodsDescMapper.selectByPrimaryKey(id);
+
+        //2.调用freeamrker的方法  输出静态页面( 模板 + 数据集 =html)
+        genHTML("item.ftl",tbGoods,tbGoodsDesc);
     }
 
-    /***
-     * 删除静态页面
-     * @param ids
-     */
     @Override
-    public void deleteByIds(Long[] ids) throws IOException {
-        for (Long goodsId : ids) {
-            FileUtils.forceDelete(new File("E:\\html\\"+goodsId+".html"));
+    public void deleteByIds(Long[] longs) {
+        for (Long aLong : longs) {
+            try {
+                FileUtils.forceDelete(new File("E:\\develop\\GitRepositories\\pinyougou\\pinyougou58\\pinyougou-page-web\\src\\main\\webapp\\"+aLong+".html"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void genHTML(String templateName, TbGoods tbGoods, TbGoodsDesc tbGoodsDesc) {
-        FileWriter fileWriter = null;
+    private void genHTML(String templateName,TbGoods tbGoods, TbGoodsDesc tbGoodsDesc) {
+        FileWriter writer=null;
         try {
-            //创建配置对象
-            Configuration configuration = freeMarkerConfigurer.getConfiguration();
-            //设置编码  加载模板
+            //1.创建模板文件
+            //2.创建configuration对象
+            //4.构建文件所在的目录以及字符编码
+
+            Configuration configuration = configurer.getConfiguration();
+            //5.加载模板文件获取到模板对象，准备数据集
             Template template = configuration.getTemplate(templateName);
-            //加载数据
-            Map map = new HashMap<String,Object>();
+
+            Map map = new HashMap<>();
             map.put("tbGoods",tbGoods);
             map.put("tbGoodsDesc",tbGoodsDesc);
 
-            //js存入sku数据
-            Example example = new Example(TbItem.class);
-            //查询条件： goodsId status is_default
-            example.createCriteria().andEqualTo("goodsId",tbGoods.getId()).andEqualTo("status","1");
-            example.setOrderByClause("is_default desc");
-            List<TbItem> skuList = itemMapper.selectByExample(example);
+            //根据SPU的ID 查询该SPU下的符合条件的所有的SKU的列表数据
+            //select * from tb_item where goods_id=1 and status=1 order by is_default desc
+            Example exmaple = new Example(TbItem.class);
+            Example.Criteria criteria = exmaple.createCriteria();
+            criteria.andEqualTo("goodsId",tbGoods.getId());
+            criteria.andEqualTo("status",1);
+
+            exmaple.setOrderByClause("is_default desc");//order by
+            List<TbItem> skuList = itemMapper.selectByExample(exmaple);
+            //存储到静态页面中
             map.put("skuList",skuList);
 
-            //创建输出流
-            /*ResourceBundle bundle = ResourceBundle.getBundle("/resources/properties/config");
-            String pageDir = bundle.getString("pageDir");*/
 
-            fileWriter = new FileWriter(new File("E:\\html\\"+tbGoods.getId()+".html"));
-            //freeMarker创建静态页面
-            template.process(map,fileWriter);
+            //6.创建(写)文件流  输出
+           writer = new FileWriter(new File("E:\\develop\\GitRepositories\\pinyougou\\pinyougou58\\pinyougou-page-web\\src\\main\\webapp\\"+tbGoods.getId()+".html"));
+            template.process(map,writer);
+            //7.关闭流
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {//关闭流
-            if (fileWriter!=null) {
+        }finally {
+            if(writer!=null){
                 try {
-                    fileWriter.close();
+                    writer.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

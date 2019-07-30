@@ -11,7 +11,7 @@
         <!--配置topic tag-->
         <property name="subscription">
             <map>
-                <entry key="goodsUpdate" value="*"></entry>
+                <entry key="topic_goods" value="tag_goods"></entry>
             </map>
         </property>
         <property name="messageModel" value="CLUSTERING"></property>

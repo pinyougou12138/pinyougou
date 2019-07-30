@@ -51,4 +51,11 @@ public interface GoodsService extends CoreService<TbGoods> {
 
     /*wql  根据id 查找一个数据 用于秒杀申请*/
     TbItem findOneSKU(Long id);
+
+	/***
+	 * 修改数据库上下架状态
+	 * @param status
+	 * @param ids
+	 */
+	void updateIsMarketable(String status, Long[] ids);
 }

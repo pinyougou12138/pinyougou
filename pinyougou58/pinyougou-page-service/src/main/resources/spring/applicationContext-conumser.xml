@@ -11,12 +11,12 @@
         <!--訂閲topic-->
         <property name="subscription">
             <map>
-                <entry key="goodsUpdate" value="*"></entry>
+                <entry key="topic_goods" value="tag_goods"></entry>
             </map>
         </property>
         <!--监听-->
         <property name="messageListener" ref="messageListener"></property>
     </bean>
 
-    <bean class="com.pinyougou.page.listener.PageMessageListener" id="messageListener"></bean>
+    <bean class="com.pinyougou.page.listener.GoodsPageGenHtmlMessageListener" id="messageListener"></bean>
 </beans>
