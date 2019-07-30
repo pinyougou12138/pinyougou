@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-public class GoodsTask {
+public class  GoodsTask {
 
     @Autowired
     private RedisTemplate redisTemplate;
