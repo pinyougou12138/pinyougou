@@ -24,7 +24,7 @@ import java.util.*;
 
 
 /**
- * 服务实现层
+ * 服务实现层。
  * @author Administrator
  *
  */
