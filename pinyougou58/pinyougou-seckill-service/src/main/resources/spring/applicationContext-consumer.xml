@@ -11,7 +11,7 @@
         <!--订阅主题-->
         <property name="subscription">
             <map>
-                <entry key="TOPIC_SECKILL" value="Tags_genHtml" />
+                <entry key="TOPIC_SECKILL" value="Tags_SECKILL" />
             </map>
         </property>
         <property name="messageListener" ref="messageListener"></property>
@@ -28,7 +28,6 @@
 
         <property name="subscription">
             <map>
-                <!--主题 goods_topic 下的Tags_genHtml tag的消息-->
                 <entry  key="TOPIC_SECKILL_DELAY" value="TAG_SECKILL_DELAY"></entry>
             </map>
         </property>
