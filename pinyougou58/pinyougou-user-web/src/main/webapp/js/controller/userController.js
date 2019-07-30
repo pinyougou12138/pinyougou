@@ -178,7 +178,7 @@
             });
         },
         update: function () {
-            var day = this.birthYear+'-'+this.birthMonth+'-'+this.birthDay
+            var day = this.birthYear+'-'+this.birthMonth+'-'+this.birthDay;
             var dateInput = new Date(day);
             this.$set(app.entity,'birthday',dateInput);
             this.$set(app.entity,'district',app.district);
@@ -201,7 +201,7 @@
         },
         //查看用户信息数据回显
         findOne: function () {
-            axios.get('/user/findOne.shtml').then(function (response) {
+            axios.get('/user/findOneByUsername.shtml').then(function (response) {
                 app.entity = response.data;
                 var date = new Date();
                 date.setTime(response.data.birthday);

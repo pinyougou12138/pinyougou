@@ -220,7 +220,7 @@
 												<div class="attr"><em>{{orderItem.title}}</em></div>
 												<div class="cu"><em><span>促</span>{{cart.sellerName}}</em></div>
 												<div class="operate">
-													<a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+													<a @ckick="addGoodsToCartList(orderItem.itemId,1)" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
 													<a href="javascript:void(0);" class="sui-btn btn-bordered">对比</a>
 													<a href="javascript:void(0);" class="sui-btn btn-bordered">降价通知</a>
 												</div>

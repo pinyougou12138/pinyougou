@@ -44,7 +44,7 @@ public class BrandServiceImpl extends CoreServiceImpl<TbBrand>  implements Brand
     public void importBrandList() {
         ImportExcelUtil importExcelUtil=new ImportExcelUtil();
         //excel 导入数据demo
-        File file = new File("C:\\Users\\13790\\Desktop\\brand.xlsx");
+        File file = new File("C:\\Users\\drever\\Desktop\\brand.xlsx");
         List<List<Object>> dataList= null;
 
 
@@ -64,10 +64,12 @@ public class BrandServiceImpl extends CoreServiceImpl<TbBrand>  implements Brand
             String id = (String) dataList.get(i).get(0);
             String name = (String) dataList.get(i).get(1);
             String firstChar = (String) dataList.get(i).get(2);
-
+            String auditStatus = (String) dataList.get(i).get(3);
             brand.setId(Long.valueOf(id));
             brand.setName(String.valueOf(name));
             brand.setFirstChar(String.valueOf(firstChar));
+            brand.setAuditStatus(String.valueOf(auditStatus));
+
 
             brandMapper.insert(brand);
         }

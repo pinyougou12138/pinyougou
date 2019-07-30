@@ -6,22 +6,12 @@
         list:[],
         entity:{},
         ids:[],
-        sta:['未付款','已付款','未发货','已发货','交易成功','交易关闭','待评价'],
-        totalOrder:'',
-        totalUsers:'',
+        status:['未审核','已审核','审核未通过'],
         searchEntity:{}
     },
     methods: {
-        countTotalUsers:function () {
-            axios.post("/user/countTotalUsers.shtml").then(function (response) {
-                if (response.data) {
-                    app.totalUsers=response.data.message
-                }
-            })
-        },
-
         searchList:function (curPage) {
-                axios.post('/orderManger/search.shtml?pageNo='+curPage,this.searchEntity).then(function (response) {
+            axios.post('/brand/search.shtml?pageNo='+curPage,this.searchEntity).then(function (response) {
                 //获取数据
                 app.list=response.data.list;
 
@@ -34,11 +24,10 @@
         //查询所有品牌列表
         findAll:function () {
             console.log(app);
-            axios.get('/orderManger/findAll.shtml').then(function (response) {
+            axios.get('/brand/findAll.shtml').then(function (response) {
                 console.log(response);
                 //注意：this 在axios中就不再是 vue实例了。
-                //将list集合长度赋值为totalOrder
-                app.totalOrder=response.data.length;
+                app.list=response.data;
 
             }).catch(function (error) {
 
@@ -46,7 +35,7 @@
         },
          findPage:function () {
             var that = this;
-            axios.get('/orderManger/findPage.shtml',{params:{
+            axios.get('/brand/findPage.shtml',{params:{
                 pageNo:this.pageNo
             }}).then(function (response) {
                 console.log(app);
@@ -59,9 +48,20 @@
 
             })
         },
-
+        //该方法只要不在生命周期的
+        add:function () {
+            axios.post('/brand/add.shtml',this.entity).then(function (response) {
+                console.log(response);
+                //isSuccess
+                if(response.data.success){//result:{ isSuccess,}
+                    app.searchList(1);
+                }
+            }).catch(function (error) {
+                console.log("1231312131321");
+            });
+        },
         update:function () {
-            axios.post('/orderManger/update.shtml',this.entity).then(function (response) {
+            axios.post('/brand/update.shtml',this.entity).then(function (response) {
                 console.log(response);
                 if(response.data.success){
                     app.searchList(1);
@@ -78,14 +78,14 @@
             }
         },
         findOne:function (id) {
-            axios.get('/orderManger/findOne/'+id+'.shtml').then(function (response) {
+            axios.get('/brand/findOne/'+id+'.shtml').then(function (response) {
                 app.entity=response.data;
             }).catch(function (error) {
                 console.log("1231312131321");
             });
         },
         dele:function () {
-            axios.post('/orderManger/delete.shtml',this.ids).then(function (response) {
+            axios.post('/brand/delete.shtml',this.ids).then(function (response) {
                 console.log(response);
                 if(response.data.success){
                     app.searchList(1);
@@ -102,8 +102,7 @@
     created: function () {
       
         this.searchList(1);
-        this.findAll();
-        this.countTotalUsers();
+
     }
 
 })

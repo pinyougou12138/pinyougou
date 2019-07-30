@@ -55,4 +55,12 @@ public interface SeckillOrderService extends CoreService<TbSeckillOrder> {
 	 * @param userId
 	 */
 	void deleteOrder(String userId);
+
+	/**wql
+	 * 通过秒杀订单号 查询 秒杀订单
+	 * @param name
+	 * @param id
+	 * @return
+	 */
+	TbSeckillOrder findOrderList(String name, Long id);
 }

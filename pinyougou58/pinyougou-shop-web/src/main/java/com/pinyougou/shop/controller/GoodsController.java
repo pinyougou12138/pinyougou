@@ -2,6 +2,7 @@ package com.pinyougou.shop.controller;
 import java.security.Security;
 import java.util.List;
 
+import com.pinyougou.pojo.TbItem;
 import entity.Goods;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -111,5 +112,16 @@ public class GoodsController {
 		goods.setSellerId(sellerId);
 		return goodsService.findPage(pageNo, pageSize, goods);
     }
+
+	/**
+	 * wql根据id 查找一个数据 用于秒杀申请
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/findOneSKU")
+	public TbItem findOneSKU(Long id){
+
+		return goodsService.findOneSKU(id);
+	}
 	
 }

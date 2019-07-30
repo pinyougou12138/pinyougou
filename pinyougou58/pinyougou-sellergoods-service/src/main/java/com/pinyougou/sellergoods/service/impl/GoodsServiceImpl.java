@@ -325,4 +325,15 @@ public class GoodsServiceImpl extends CoreServiceImpl<TbGoods>  implements Goods
 		//tbItemMapper 查询
 		return itemMapper.selectByExample(example);
 	}
+
+	/**wql
+	 * 根据id 查找一个数据 用于秒杀申请
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public TbItem findOneSKU(Long id) {
+
+		return 	itemMapper.selectByPrimaryKey(id);
+	}
 }
