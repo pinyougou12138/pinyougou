@@ -5,10 +5,26 @@ var app = new Vue({
         loginName:'',
         cartList:[],
         totalMoney:0,//总金额
-        totalNum:0//总数量
+        totalNum:0,//总数量
+        pages:15,
+        pageNo:1,
+        list:[],
+        entity:{},
+        smsCode:'',
+        ids:[],
+        searchEntity:{}
     },
 
     methods: {
+        /**
+         * 查看购物车
+         */
+        findCartList: function () {
+            axios.get('/user/findCartList.shtml').then(function(response){
+                app.cartList=response.data;
+            })
+        },
+
         //获取用户名
         getName: function () {
             axios.get('/login/name.shtml').then(function (response) {
@@ -40,5 +56,6 @@ var app = new Vue({
     },
     created: function () {
         this.getName();
+        this.findCartList();
     }
 })

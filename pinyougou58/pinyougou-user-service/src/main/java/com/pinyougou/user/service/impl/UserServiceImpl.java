@@ -121,8 +121,8 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserServ
                 criteria.andLike("nickName", "%" + user.getNickName() + "%");
                 //criteria.andNickNameLike("%"+user.getNickName()+"%");
             }
-            if (StringUtils.isNotBlank(user.getName())) {
-                criteria.andLike("name", "%" + user.getName() + "%");
+            if (StringUtils.isNotBlank(user.getJob())) {
+                criteria.andLike("name", "%" + user.getJob() + "%");
                 //criteria.andNameLike("%"+user.getName()+"%");
             }
             if (StringUtils.isNotBlank(user.getStatus())) {

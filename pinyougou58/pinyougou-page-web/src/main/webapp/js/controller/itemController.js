@@ -13,7 +13,7 @@ var app = new Vue({
          * @param num
          */
         addGoodsToCartList:function (itemId,num) {
-            axios.get('http://localhost:18094/cart/addGoodsToCartList.shtml',{
+            axios.get('http://localhost:9107/cart/addGoodsToCartList.shtml',{
                 params:{
                     itemId:this.sku.id,
                     num:this.num
@@ -22,7 +22,7 @@ var app = new Vue({
                 withCredentials:true
             }).then(function (response) {
                 if(response.data.success){
-                    window.location.href="http://localhost:18094/cart.html"
+                    window.location.href="http://localhost:9107/cart.html"
                 }else {
                     alert(response.data.message)
                 }

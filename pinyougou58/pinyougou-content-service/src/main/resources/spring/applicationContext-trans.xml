@@ -30,6 +30,6 @@
     <!-- 引入-->
     <import resource="applicationContext-dao.xml"></import>
     <import resource="applicationContext-service.xml"></import>
-    <!--<import resource="applicationContext-redis.xml"></import>-->
-    <import resource="spring-redis-cluster.xml"></import>
+    <import resource="applicationContext-redis.xml"></import>
+    <!--<import resource="spring-redis-cluster.xml"></import>-->
 </beans>
