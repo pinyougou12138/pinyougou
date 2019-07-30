@@ -5,7 +5,7 @@ var app = new Vue({
         sellers:[],
     },
     methods:{
-        drawLine(){
+        drawLine:function(){
             axios("/user/paymentGroupBySellerId.shtml").then(function (response) {
                 if (response.data.success) {
                     var obj = JSON.parse(response.data.message);
@@ -82,7 +82,7 @@ var app = new Vue({
 
         }
     },
-    mounted(){
+    mounted:function(){
         this.drawLine();
     },
 });

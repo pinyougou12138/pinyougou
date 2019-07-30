@@ -6,7 +6,7 @@ var app = new Vue({
     },
     methods:{
 
-        selectActiveUser(){
+        selectActiveUser:function(){
             axios("/user/findActiveUsers.shtml").then(function (response) {
                 if (response.data.success) {
                     var obj = JSON.parse(response.data.message);
@@ -43,7 +43,7 @@ var app = new Vue({
 
         },
     },
-    mounted(){
+    mounted:function(){
         this.selectActiveUser();
 
     },
