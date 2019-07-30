@@ -12,6 +12,7 @@
     },
     methods: {
         searchList:function (curPage) {
+            console.log(this.curPage);
             axios.post('/seckillOrder/search.shtml?pageNo='+curPage,this.searchEntity).then(function (response) {
                 //获取数据
                 app.list=response.data.list;

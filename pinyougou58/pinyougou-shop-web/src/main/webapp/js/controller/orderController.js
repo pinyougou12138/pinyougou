@@ -31,6 +31,8 @@
         }
         ,
         searchList:function (curPage) {
+
+            // axios.post('/goods/search.shtml?pageNo='+curPage,this.searchEntity).then(function (response) {
             axios.post('/goods/search.shtml?pageNo='+curPage,this.searchEntity).then(function (response) {
                 //获取数据
                 app.list=response.data.list;

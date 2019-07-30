@@ -41,6 +41,20 @@ public class UserController {
 		return result;
 	}
 
+	@RequestMapping("/findActiveUsers")
+	public Result findActiveUsers(){
+		Result result = null;
+		try {
+			Map<String, Object> map = userService.findActiveUsers();
+			result = new Result(true, JSON.toJSONString(map));
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = new Result(false,"查询失败");
+		}
+
+		return result;
+	}
+
 	@RequestMapping("/exportUserData")
 	public Result exportUserData(){
 		Result result = null;
@@ -190,5 +204,6 @@ public class UserController {
                                      @RequestBody TbUser user) {
         return userService.findPage(pageNo, pageSize, user);
     }
-	
+
+
 }

@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.pinyougou.core.service.CoreService;
 import com.pinyougou.pojo.TbUser;
 
+import java.util.Map;
+
 /**
  * 服务层接口
  * @author Administrator
@@ -11,6 +13,11 @@ import com.pinyougou.pojo.TbUser;
  */
 public interface UserService extends CoreService<TbUser> {
 
+	/**
+	 * 统计用户活跃量
+	 * @return
+	 */
+	public Map<String,Object> findActiveUsers();
 	/**
 	 * 导出用户数据到excel
 	 */

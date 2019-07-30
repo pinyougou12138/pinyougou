@@ -42,7 +42,7 @@ public class OrderController {
 
 
 		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
-		System.out.println(sellerId);
+
 
 		return orderService.findBySellerId(pageNo,pageSize,sellerId);
 

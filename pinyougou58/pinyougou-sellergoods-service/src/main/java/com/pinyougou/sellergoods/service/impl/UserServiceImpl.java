@@ -35,6 +35,38 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserServ
     }
 
 
+
+    @Override
+    public Map<String, Object> findActiveUsers() {
+        Map<String,Object> map = new HashMap<>();
+
+        //获取当前时间
+        Date date = new Date();
+        //两个月前时间
+        Date twoMothAgo = null;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(calendar.MONTH,-2);//设置为前两个月
+        twoMothAgo = calendar.getTime();
+        Example example = new Example(TbUser.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andBetween("lastLoginTime",twoMothAgo,date);
+
+
+        Integer activeCount = userMapper.selectCountByExample(example);
+
+        criteria.andBetween("lastLoginTime",twoMothAgo,date);
+
+        Example example2 = new Example(TbUser.class);
+        Example.Criteria criteria2 = example2.createCriteria();
+        criteria2.andNotBetween("lastLoginTime",twoMothAgo,date);
+        Integer unActiveCount = userMapper.selectCountByExample(example2);
+        map.put("active",activeCount);
+        map.put("unactive",unActiveCount);
+
+        return map;
+    }
+
     @Override
     public void exportUserData() {
 

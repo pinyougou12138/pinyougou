@@ -44,7 +44,7 @@ public class BrandServiceImpl extends CoreServiceImpl<TbBrand>  implements Brand
     public void importBrandList() {
         ImportExcelUtil importExcelUtil=new ImportExcelUtil();
         //excel 导入数据demo
-        File file = new File("C:\\Users\\drever\\Desktop\\brand.xlsx");
+        File file = new File("D:\\Javapractice\\JavaEE\\brand.xlsx");
         List<List<Object>> dataList= null;
 
 
