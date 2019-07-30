@@ -60,7 +60,7 @@ public class ItemPageServiceImpl implements ItemPageService {
     public void deleteByIds(Long[] longs) {
         for (Long aLong : longs) {
             try {
-                FileUtils.forceDelete(new File("E:\\develop\\GitRepositories\\pinyougou\\pinyougou58\\pinyougou-page-web\\src\\main\\webapp\\"+aLong+".html"));
+                FileUtils.forceDelete(new File("D:\\Javapractice\\fromGit\\pinyougou58\\pinyougou-page-web\\src\\main\\webapp\\"+aLong+".html"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -96,7 +96,7 @@ public class ItemPageServiceImpl implements ItemPageService {
 
 
             //6.创建(写)文件流  输出
-           writer = new FileWriter(new File("E:\\develop\\GitRepositories\\pinyougou\\pinyougou58\\pinyougou-page-web\\src\\main\\webapp\\"+tbGoods.getId()+".html"));
+           writer = new FileWriter(new File("D:\\Javapractice\\fromGit\\pinyougou58\\pinyougou-page-web\\src\\main\\webapp\\"+tbGoods.getId()+".html"));
             template.process(map,writer);
             //7.关闭流
         } catch (Exception e) {

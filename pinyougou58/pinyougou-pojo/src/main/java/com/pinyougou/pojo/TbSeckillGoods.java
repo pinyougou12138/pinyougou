@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Table(name = "tb_seckill_goods")
-@Document(indexName = "pinyougou", type = "secKill")
+@Document(indexName = "pyg", type = "secKill")
 public class TbSeckillGoods implements Serializable {
 
     @Id

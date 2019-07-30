@@ -1,5 +1,6 @@
 package com.pinyougou.pojo;
 
+import org.elasticsearch.index.settings.IndexDynamicSettings;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
+import javax.persistence.*;
 
 @Table(name = "tb_item")
 @Document(indexName = "pinyougou",type="item")
