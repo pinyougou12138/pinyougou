@@ -1,5 +1,7 @@
 package com.pinyougou.order.service;
 import java.util.List;
+import java.util.Map;
+
 import com.pinyougou.pojo.TbOrder;
 
 import com.github.pagehelper.PageInfo;
@@ -32,4 +34,39 @@ public interface OrderService {
 	 * @param transaction_id
 	 */
 	void updateOrderStatus(String out_trade_no, String transaction_id);
+
+	/**wql
+	 * 生成折线图的方法
+	 * @param startTime
+	 * @param endTime
+	 * @param sellerId
+	 * @return
+	 */
+	Map findxl(String startTime, String endTime, String sellerId);
+
+
+	/** wql
+	 * 点击订单管理 查询所有订单号
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sellerId
+	 * @return
+	 */
+    PageInfo<TbOrder> findBySellerId(Integer pageNo, Integer pageSize, String sellerId);
+
+	/**
+	 * wql
+	 * @param pageNo
+	 * @param pageSize
+	 * @param time1
+	 * @param time2
+	 * @return
+	 */
+	PageInfo<TbOrder> findByTime(Integer pageNo, Integer pageSize, String time1, String time2);
+
+	/**wql
+	 * 发货 时修改status
+	 * @param ids
+	 */
+	void shipments(Long[] ids);
 }

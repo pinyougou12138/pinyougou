@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商品管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../plugins/axios/axios.js"></script>
+	<script src="../plugins/echarts.js"></script>
+ 
+</head>
+
+	起始时间：<input  name="address"> 结束时间：<input name="jzwmc" >
+	<input type="button" id="sub" value="查询">
+<body class="hold-transition skin-red sidebar-mini" >
+  <!-- .box-body -->
+
+  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+  <div id="main" style="width: 600px;height:400px;"></div>
+
+  <script>
+
+      $('#sub').click(function(){
+
+          var myChart = echarts.init(document.getElementById('main'));
+
+          // 异步加载数据
+
+          axios.get('/order/findxl.shtml',{
+
+              params:{
+                  startTime:$("input[name=address]").val(),
+                  endTime:$("input[name=jzwmc]").val()
+              }
+          }).then(function (res) {
+                  // 填入数据
+                  // 指定图表的配置项和数据
+                  var option = {
+                      title: {
+                          text: '销量'
+                      },
+                      tooltip: {},
+                      legend: {
+                          data:['销量']
+                      },
+                      xAxis: {
+                          data: res.data.time
+                      },
+                      yAxis: {},
+                      series: [{
+                          name: '销量',
+                          type: 'line',
+                          data: res.data.money
+                      }]
+                  };
+
+                  // 使用刚指定的配置项和数据显示图表。
+                  myChart.setOption(option);
+
+
+              }
+
+          )
+
+  })
+
+  </script>
+<!--wql-->
+		
+</body>
+
+<script src="../plugins/vue/vue.js"></script>
+<script src="../js/pagination.js"></script>
+</html>

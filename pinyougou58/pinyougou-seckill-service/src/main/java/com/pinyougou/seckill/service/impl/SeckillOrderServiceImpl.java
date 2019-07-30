@@ -203,4 +203,18 @@ public class SeckillOrderServiceImpl extends CoreServiceImpl<TbSeckillOrder> imp
         redisTemplate.boundHashOps(SysConstants.SEC_KILL_ORDER).delete(userId);
     }
 
+    /**wql
+     * 通过秒杀订单号 查询 秒杀订单
+     * @param name
+     * @param id
+     * @return
+     */
+    @Override
+    public TbSeckillOrder findOrderList(String name, Long id) {
+        TbSeckillOrder order = new TbSeckillOrder();
+        order.setSellerId(name);
+        order.setId(id);
+        return   seckillOrderMapper.selectOne(order);
+    }
+
 }

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>商品管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+
+
+
+<body class="hold-transition skin-red sidebar-mini" >
+  <!-- .box-body -->
+  <div id="app">
+                
+                    <div class="box-header with-border">
+                        <h3 class="box-title">商品管理</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <!-- 数据表格 -->
+                        <div class="table-box">
+
+                            <!--工具栏-->
+                            <div class="pull-left">
+                                <div class="form-group form-inline">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default" title="新建" ><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" class="btn btn-default" title="提交审核" ><i class="fa fa-check"></i> 提交审核</button>
+                                        <button type="button" class="btn btn-default" title="屏蔽" onclick='confirm("你确认要屏蔽吗？")'><i class="fa fa-ban"></i> 屏蔽</button>
+                                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+
+
+
+									</div>
+                                </div>
+                            </div>
+                            <!--工具栏/-->
+
+			                  <!--数据列表-->
+			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+
+                                                                                 {{item}}
+								  											{{seckillGoods}}
+											  <table class="table table-bordered table-striped"  width="800px">
+
+												  <tr >
+													 <td> SPU<input  class="form-control"    v-model="seckillGoods.itemId" placeholder="goodsId" >  </td>
+												  </tr>
+												  <tr >
+													 <td> SKU<input  class="form-control"  v-model="seckillGoods.goodsId" placeholder="SKU">  </td>
+												  </tr>
+												  <tr >
+													  <td>原价格<input  class="form-control"  v-model="seckillGoods.price" placeholder="原价格">  </td>
+												  </tr>
+												  <tr>
+													  <td>秒杀价格<input  class="form-control"  v-model="seckillGoods.costPrice" placeholder="秒杀价格">  </td>
+												  </tr>
+												  <tr >
+													  <td>商家<input  class="form-control"  v-model="seckillGoods.sellerId" placeholder="商家">  </td>
+												  </tr>
+												  <tr >
+													  <td>秒杀商品库存数量<input  class="form-control"   v-model="seckillGoods.num" placeholder="商品库存">  </td>
+												  </tr>
+												  <tr>
+													  <td>秒杀开始时间<input  class="form-control"  v-model="startTime" placeholder="秒杀开始时间">  </td>
+
+												  </tr>
+												  <tr>
+													  <td>秒杀结束时间<input  class="form-control"  v-model="endTime" placeholder="秒杀结束时间">  </td>
+
+												  </tr>
+												  <tr >
+													  <td>描述<input  class="form-control"   v-model="seckillGoods.introduction" placeholder="描述">  </td>
+												  </tr>
+											  </table>
+
+										  <div class="modal-footer">
+											  <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" @click="add()" >提交申请</button>
+											  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+										  </div>
+
+
+
+			                  </table>
+			                  <!--数据列表/-->
+
+
+                        </div>
+                        <!-- 数据表格 /-->
+                        
+                     </div>
+                    <!-- /.box-body -->
+
+  </div>
+</body>
+
+
+
+
+<script src="../plugins/vue/vue.js"></script>
+<script src="../js/controller/base.js"></script>
+<script src="../plugins/axios/axios.js"></script>
+<script src="../js/pagination.js"></script>
+<script src="../js/controller/goodsSeckillController.js"></script>
+
+</html>
