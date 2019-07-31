@@ -13,6 +13,7 @@
         importBrandList:function () {
             axios.post("/brand/importBrandList.shtml").then(function (response) {
                 if (response.data.success) {
+                    alert(response.data().message);
                     console.log(response.data.message);
                 }
             })
