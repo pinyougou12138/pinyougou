@@ -31,6 +31,8 @@ public class UserFootmarkServiceImpl implements UserFootmarkService {
             if (!list.contains(itemId)) {
                 redisTemplate.boundListOps("footmark_key:" + userId).leftPush(itemId);
             }
+        }else {
+            redisTemplate.boundListOps("footmark_key:" + userId).leftPush(itemId);
         }
     }
 

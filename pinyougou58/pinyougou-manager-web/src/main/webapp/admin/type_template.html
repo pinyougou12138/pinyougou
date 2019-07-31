@@ -39,7 +39,8 @@
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default" title="新建" @click="entity={customAttributeItems:[]}" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
                                         <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
-                                       
+										<button type="button" class="btn btn-default" @click="updateStatus(1)" title="审核通过" ><i class="fa fa-check"></i> 审核通过</button>
+										<button type="button" class="btn btn-default" @click="updateStatus(2)" title="驳回" ><i class="fa fa-ban"></i> 驳回</button>
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
@@ -59,25 +60,27 @@
 			                              <th class="" style="padding-right:0px">
 			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
 			                              </th> 
-										  <th class="sorting_asc">模板ID</th>
-									      <th class="sorting">分类模板名称</th>
-									      <th class="sorting">关联品牌</th>
-									      <th class="sorting">关联规格</th>									     
-									      <th class="sorting">扩展属性</th>													     						
-					                      <th class="text-center">操作</th>
+										  <th class="sorting_asc" style="text-align: center">模板ID</th>
+									      <th class="sorting" style="text-align: center">分类模板名称</th>
+									      <th class="sorting" style="text-align: center">关联品牌</th>
+									      <th class="sorting" style="text-align: center">关联规格</th>
+									      <th class="sorting" style="text-align: center">扩展属性</th>
+					                      <th class="text-center"  style="text-align: center">操作</th>
+										  <th class="text-center" style="text-align: center">状态</th>
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr v-for="entity in list">
-			                              <td><input  type="checkbox"></td>			                              
-				                          <td>{{entity.id}}</td>
-									      <td>{{entity.name}}</td>
-									      <td>{{jsonToString(entity.brandIds,'text')}}</td>
-									      <td>{{jsonToString(entity.specIds,'text')}}</td>
-									      <td>{{jsonToString(entity.customAttributeItems,'text')}}</td>
+			                          <tr v-for="entity in list">{{ids}}
+			                              <td><input  type="checkbox" :value="entity.id" v-model="ids"></td>
+				                          <td style="text-align: center">{{entity.id}}</td>
+									      <td style="text-align: center">{{entity.name}}</td>
+									      <td style="text-align: center">{{jsonToString(entity.brandIds,'text')}}</td>
+									      <td style="text-align: center">{{jsonToString(entity.specIds,'text')}}</td>
+									      <td style="text-align: center">{{jsonToString(entity.customAttributeItems,'text')}}</td>
 		                                  <td class="text-center">                                           
 		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" @click="findOne(entity.id)" >修改</button>
 		                                  </td>
+										  <td style="text-align: center">{{status[entity.auditStatus]}}</td>
 			                          </tr>
 			                      </tbody>
 			                  </table>

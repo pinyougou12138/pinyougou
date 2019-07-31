@@ -19,6 +19,7 @@
         show:'',
         etime:'',
         ctime:'',
+        ftime:'',
         status:['未付款','已付款','未发货','已发货','交易成功','交易关闭','待评价',],
     },
     methods: {
@@ -75,8 +76,11 @@
 
 
                   var  createTime=(response.data.list[i].createTime);
-                  var endTime=(response.data.list[i].endTime);
-                    app.ctime=app.convertTimeString(createTime)
+                 // var endTime=(response.data.list[i].endTime);
+                  var consignTime =(response.data.list[i].consignTime);
+
+                    app.ctime=app.convertTimeString(createTime);
+                    //app.ftime=app.convertTimeString(consignTime);
 
                     app.etime=app.convertTimeString(endTime)
 
@@ -100,6 +104,9 @@
 
             for (var i=0;i<response.data.list.length;i++){
                 response.data.list[i].createTime=app.convertTimeString(response.data.list[i].createTime);
+                response.data.list[i].consignTime=app.convertTimeString(response.data.list[i].consignTime);
+
+
                 response.data.list[i].endTime=app.convertTimeString(response.data.list[i].endTime);
 
             }
@@ -129,7 +136,7 @@ if (response.data.success){
         },
 
 
-//转换时间格式
+            //转换时间格式
         convertTimeString:function (jsondate) {
             if (jsondate!=null){
                 jsondate=""+jsondate+"";//因为jsonDate是number型的indexOf会报错
